@@ -7,7 +7,7 @@ This assignment examines the conveniences Swift provides for working with nil, a
 ### Setup
 
 ```bash
-cd swift-todo
+cd optional-desugaring
 swift test
 ```
 
@@ -49,7 +49,7 @@ When you are done, you should see all tests passing.
 ### Setup
 
 ```bash
-cd ruby-todo
+cd ruby-counterpart
 bundle       # shortcut for `bundle install`
 ```
 
