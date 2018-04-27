@@ -8,7 +8,7 @@ ProfileScreen = Model.new(:user, :app_theme) do
 
     user.avatar&.style&.background_color || app_theme.background_color
     # In ruby, nil&.style returns nil, so nil&.style.background_color is the same as nil.background_color
-    # I'm not completely sure why this isn't an issue in Swift
+    # Whereas in swift, nil?.a.b.c.d is the same as nil, rather than nil.b.c.d
 
   end
 end
