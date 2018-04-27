@@ -1,3 +1,70 @@
+// FakeOptional
+enum FakeOptional<Wrapped> {
+    case some(Wrapped)
+    case none
+}
+
+extension FakeOptional {
+    var realOptional: Wrapped? {
+        switch self {
+            case .some(let value):
+                return value
+            case .none:
+                return nil
+        }
+    }
+}
+
+extension Optional {
+    var fakeOptional: FakeOptional<Wrapped> {
+        if let value = self {
+            return .some(value)
+        } else {
+            return .none
+        }
+    }
+}
+
+
+
+
+
+
+// Model
+struct User {
+    var name: String
+    var avatar: StyledImage?
+}
+
+struct StyledImage {
+    var image: Image
+    var style: Style
+}
+
+struct Style {
+    var backgroundColor: Color?
+    var foregroundColor: Color?
+}
+
+struct Image {
+    // pretend this contains real image data
+}
+
+enum Color {  // just the important ones
+    case fuchsia
+    case chartreuse
+    case mauve
+    case wenge
+    case puce
+    case smaragdine
+    case fulvous
+}
+
+
+
+
+
+// ProfileScreen
 class ProfileScreen {
     var user: User
     var appTheme: Style
@@ -247,3 +314,104 @@ class ProfileScreen {
 
 // Support for "fill in the blank" types
 typealias ________ = Never
+
+
+
+
+
+
+
+// Testing
+
+class OptionalDesugaringTests {
+    let theme0 = Style(
+        backgroundColor: nil,
+        foregroundColor: .fulvous)
+
+    let theme1 = Style(
+        backgroundColor: .fuchsia,
+        foregroundColor: .smaragdine)
+
+    let theme2 = Style(
+        backgroundColor: .mauve,
+        foregroundColor: .wenge)
+
+    func profileScreen(avatarStyle: Style?, appTheme: Style) -> ProfileScreen {
+        let avatar: StyledImage?
+        if let avatarStyle = avatarStyle {
+            avatar = StyledImage(image: Image(), style: avatarStyle)
+        } else {
+            avatar = nil
+        }
+        return ProfileScreen(
+            user: User(name: "Sally Jones", avatar: avatar),
+            appTheme: appTheme)
+    }
+
+
+    func testAvatarHasBackgroundColor() {
+        assertBackgroundColorDesugarings(
+            on: profileScreen(avatarStyle: theme2, appTheme: theme1),
+            allEqual: Color.mauve)
+    }
+
+    func testAvatarHasNoBackgroundColor() {
+        assertBackgroundColorDesugarings(
+            on: profileScreen(avatarStyle: theme0, appTheme: theme1),
+            allEqual: Color.fuchsia)
+    }
+
+    func testAvatarAndAppThemeBothHaveNoBackgroundColor() {
+        assertBackgroundColorDesugarings(
+            on: profileScreen(avatarStyle: theme0, appTheme: theme0),
+            allEqual: nil)
+    }
+
+    func testNoAvatar() {
+        assertBackgroundColorDesugarings(
+            on: profileScreen(avatarStyle: nil, appTheme: theme2),
+            allEqual: Color.mauve)
+    }
+
+    func testNoStylesAtAll() {
+        assertBackgroundColorDesugarings(
+            on: profileScreen(avatarStyle: nil, appTheme: theme0),
+            allEqual: nil)
+    }
+
+    func testAllDesugaringsImplemented() {
+        XCTAssertEqual_I(
+            profileScreen(avatarStyle: nil, appTheme: theme2).headerBackgroundColorDesugarings.count,
+            7,
+            "Not all desugarings are implemented yet")
+    }
+
+    private func assertBackgroundColorDesugarings(
+            on profileScreen: ProfileScreen,
+            allEqual expectedValue: Color?)
+        {
+        for (index, value) in profileScreen.headerBackgroundColorDesugarings.enumerated() {
+            XCTAssertEqual_C(expectedValue, value, "Value \(index) does not match")
+        }
+    }
+
+    private func XCTAssertEqual_C(_ expectedValue: Color?, _ value: Color?, _ message: String){
+        if expectedValue != value{
+            print(message)
+        }
+    }
+
+    private func XCTAssertEqual_I(_ expectedValue: Int, _ value: Int, _ message: String){
+        if expectedValue != value{
+            print(message)
+        }
+    }
+}
+
+let test = OptionalDesugaringTests()
+test.testAvatarHasBackgroundColor()
+test.testAvatarHasNoBackgroundColor()
+test.testAvatarAndAppThemeBothHaveNoBackgroundColor()
+test.testNoAvatar()
+test.testNoStylesAtAll()
+test.testAllDesugaringsImplemented()
