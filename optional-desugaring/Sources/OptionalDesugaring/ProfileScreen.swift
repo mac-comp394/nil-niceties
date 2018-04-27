@@ -19,9 +19,9 @@ class ProfileScreen {
             headerBackgroundColor_desugaring_1,
             headerBackgroundColor_desugaring_2,
             headerBackgroundColor_desugaring_3,
-            //headerBackgroundColor_desugaring_4,
-            //headerBackgroundColor_desugaring_5,
-            //headerBackgroundColor_desugaring_verification.realOptional  // convert from FakeOptional; DO NOT MODIFY this line (except for uncommenting)
+            headerBackgroundColor_desugaring_4,
+            headerBackgroundColor_desugaring_5,
+            headerBackgroundColor_desugaring_verification.realOptional  // convert from FakeOptional; DO NOT MODIFY this line (except for uncommenting)
         ]
     }
 
@@ -190,8 +190,20 @@ class ProfileScreen {
         use nil at all, but if it does, replace it with .none instead. (You can say .none instead
         of Optional.none if Swift can already infer that it’s an Optional from context.)
     */
-    var headerBackgroundColor_desugaring_5: ________ {
-        fatalError("delete this line, fill in the blank above, and implement me")
+    var headerBackgroundColor_desugaring_5: Optional<Color> {
+        let headerBackgroundColor: Optional<Color>
+        switch user.avatar {
+        case .some(let optionalAvatar):
+            switch optionalAvatar.style.backgroundColor {
+                case .some(let optionalColor):
+                    headerBackgroundColor = .some(optionalColor)
+                case .none:
+                    headerBackgroundColor = appTheme.backgroundColor
+            }
+        case .none:
+            headerBackgroundColor = appTheme.backgroundColor
+        }
+        return headerBackgroundColor
     }
 
     /**
@@ -212,8 +224,20 @@ class ProfileScreen {
         headerBackgroundColorDesugarings up above (which converts your FakeOptional return value
         back to a real Optional), and the tests should still pass.
     */
-    var headerBackgroundColor_desugaring_verification: ________ {
-        fatalError("delete this line, fill in the blank above, and implement me")
+    var headerBackgroundColor_desugaring_verification: FakeOptional<Color> {
+        let headerBackgroundColor: FakeOptional<Color>
+        switch user.avatar.fakeOptional {
+            case .some(let optionalAvatar):
+                switch optionalAvatar.style.backgroundColor.fakeOptional {
+                    case .some(let optionalColor):
+                        headerBackgroundColor = .some(optionalColor)
+                    case .none:
+                        headerBackgroundColor = appTheme.backgroundColor.fakeOptional
+                }
+            case .none:
+                headerBackgroundColor = appTheme.backgroundColor.fakeOptional
+            }
+        return headerBackgroundColor
     }
 }
 
