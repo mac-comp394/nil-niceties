@@ -97,12 +97,8 @@ class ProfileScreen {
             if let userColor = userAvatar.style.backgroundColor {  // Check that backgroundColor is not nil
                 return userColor
             }
-            else {
-                return appTheme.backgroundColor  // Remove repetition?
-            }
-        } else {
-            return appTheme.backgroundColor
         }
+        return appTheme.backgroundColor
     }
 
     /**
@@ -169,7 +165,7 @@ class ProfileScreen {
             case .some(let userAvatar):
                 switch userAvatar.style.backgroundColor {
                     case .some(let userColor):
-                        return .some(userColor)  // Not sure if this is right, need this in more places?
+                        return .some(userColor)
 
                     case .none:
                         return appTheme.backgroundColor
@@ -192,7 +188,7 @@ class ProfileScreen {
             case .some(let userAvatar):
                 switch userAvatar.style.backgroundColor {
                     case .some(let userColor):
-                        return .some(userColor)  // Not sure if this is right, need this in more places?
+                        return .some(userColor)
 
                     case .none:
                         return appTheme.backgroundColor
@@ -226,7 +222,7 @@ class ProfileScreen {
             case .some(let userAvatar):
                 switch userAvatar.style.backgroundColor.fakeOptional {
                     case .some(let userColor):
-                        return .some(userColor)  // Not sure if this is right, need this in more places?
+                        return .some(userColor)
 
                     case .none:
                         return appTheme.backgroundColor.fakeOptional
