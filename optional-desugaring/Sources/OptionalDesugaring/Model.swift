@@ -23,6 +23,8 @@ enum Color {  // just the important ones
     case mauve
     case wenge
     case puce
-    case smaragdine
+    case smaragdine // i like this one especially because it's me
     case fulvous
+    
+    // you forgot Taupe and Beige!
 }
