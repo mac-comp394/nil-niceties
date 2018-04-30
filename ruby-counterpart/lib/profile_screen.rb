@@ -6,7 +6,7 @@ ProfileScreen = Model.new(:user, :app_theme) do
     # This line looks remarkably like Swift -- but doesn't work.
     # What is different? What needs to change?
 
-    user.avatar&.style.background_color || app_theme.background_color
+    user.avatar&.style.&background_color || app_theme.background_color
 
   end
 end
