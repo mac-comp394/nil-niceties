@@ -16,12 +16,12 @@ class ProfileScreen {
     var headerBackgroundColorDesugarings: [Color?] {
         return [
             headerBackgroundColor,
-            //headerBackgroundColor_desugaring_1,
-            //headerBackgroundColor_desugaring_2,
-            //headerBackgroundColor_desugaring_3,
-            //headerBackgroundColor_desugaring_4,
-            //headerBackgroundColor_desugaring_5,
-            //headerBackgroundColor_desugaring_verification.realOptional  // convert from FakeOptional; DO NOT MODIFY this line (except for uncommenting)
+            headerBackgroundColor_desugaring_1,
+            headerBackgroundColor_desugaring_2,
+            headerBackgroundColor_desugaring_3,
+            headerBackgroundColor_desugaring_4,
+            headerBackgroundColor_desugaring_5,
+            headerBackgroundColor_desugaring_verification.realOptional  // convert from FakeOptional; DO NOT MODIFY this line (except for uncommenting)
         ]
     }
 
@@ -54,7 +54,13 @@ class ProfileScreen {
         before running the tests.)
     */
     var headerBackgroundColor_desugaring_1: Color? {
-        fatalError("delete this line and implement me")
+        let bgcolor: Color?
+        if let avaColor = user.avatar?.style.backgroundColor {
+            avaColor = user.avatar?.style.backgroundColor
+        } else {
+            bgcolor = appTheme.backgroundColor
+        }
+        return bgcolor
     }
 
     /**
@@ -89,7 +95,19 @@ class ProfileScreen {
         Copy the previous method here, and remove all the optional chaining.
     */
     var headerBackgroundColor_desugaring_2: Color? {
-        fatalError("delete this line and implement me")
+        let bgcolor: Color?
+        if let avatar = user.avatar{
+            if let avaColor = avatar.backgroundColor{
+                bgcolor = avaColor
+            }
+            else{
+                bgcolor = appTheme.backgroundColor
+            }
+        } else {
+            bgcolor = appTheme.backgroundColor
+        }
+        return bgcolor
+        
     }
 
     /**
@@ -118,7 +136,20 @@ class ProfileScreen {
         the file, right?)
     */
     var headerBackgroundColor_desugaring_3: Color? {
-        fatalError("delete this line and implement me")
+        let bgcolor: Color?
+        switch user.avatar {
+            case .some(let avatar):
+                switch avatar.style.backgroundColor {
+                    case .some(let avaColor):
+                        bgcolor = avaColor
+                    
+                    case .none:
+                        bgcolor = appTheme.backgroundColor
+            }
+            case .none:
+                bgcolor = appTheme.backgroundColor
+        }
+        return bgcolor
     }
 
     /**
