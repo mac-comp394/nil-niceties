@@ -171,7 +171,20 @@ class ProfileScreen {
         Copy the previous method here and remove Swift’s automatic Optional wrapping.
     */
     var headerBackgroundColor_desugaring_4: Color? {
-        fatalError("delete this line and implement me")
+        let bgcolor: Color?
+        switch user.avatar {
+        case .some(let avatar):
+            switch avatar.style.backgroundColor {
+            case .some(let avaColor):
+                bgcolor = .some(avaColor)
+                
+            case .none:
+                bgcolor = appTheme.backgroundColor
+            }
+        case .none:
+            bgcolor = appTheme.backgroundColor
+        }
+        return bgcolor
     }
 
     /**
@@ -182,9 +195,22 @@ class ProfileScreen {
         of Optional.none if Swift can already infer that it’s an Optional from context.)
     */
     var headerBackgroundColor_desugaring_5: ________ {
-        fatalError("delete this line, fill in the blank above, and implement me")
+        let bgcolor: Optional<Color>
+        switch user.avatar {
+        case .some(let avatar):
+            switch avatar.style.backgroundColor {
+            case .some(let avaColor):
+                bgcolor = .some(avaColor)
+                
+            case .none:
+                bgcolor = appTheme.backgroundColor
+            }
+        case .none:
+            bgcolor = appTheme.backgroundColor
+        }
+        return bgcolor
     }
-
+    
     /**
         Finally, a sanity check. This project declares an enum type named FakeOptional which has
         exactly the same structure as Swift’s Optional, but is a separate, unrelated type.
@@ -204,7 +230,20 @@ class ProfileScreen {
         back to a real Optional), and the tests should still pass.
     */
     var headerBackgroundColor_desugaring_verification: ________ {
-        fatalError("delete this line, fill in the blank above, and implement me")
+        let bgcolor: FakeOptional<Color>
+        switch user.avatar.fakeOptional {
+        case .some(let avatar):
+            switch avatar.style.backgroundColor.fakeOptional {
+            case .some(let avaColor):
+                bgcolor = .some(avaColor)
+                
+            case .none:
+                bgcolor = appTheme.backgroundColor.fakeOptional
+            }
+        case .none:
+            bgcolor = appTheme.backgroundColor.fakeOptional
+        }
+        return bgcolor
     }
 }
 
