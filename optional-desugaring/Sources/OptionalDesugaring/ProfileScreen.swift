@@ -16,12 +16,12 @@ class ProfileScreen {
     var headerBackgroundColorDesugarings: [Color?] {
         return [
             headerBackgroundColor,
-            //headerBackgroundColor_desugaring_1,
-            //headerBackgroundColor_desugaring_2,
-            //headerBackgroundColor_desugaring_3,
-            //headerBackgroundColor_desugaring_4,
-            //headerBackgroundColor_desugaring_5,
-            //headerBackgroundColor_desugaring_verification.realOptional  // convert from FakeOptional; DO NOT MODIFY this line (except for uncommenting)
+            headerBackgroundColor_desugaring_1,
+            headerBackgroundColor_desugaring_2,
+            headerBackgroundColor_desugaring_3,
+            headerBackgroundColor_desugaring_4,
+            headerBackgroundColor_desugaring_5,
+            headerBackgroundColor_desugaring_verification.realOptional  // convert from FakeOptional; DO NOT MODIFY this line (except for uncommenting)
         ]
     }
 
@@ -54,7 +54,13 @@ class ProfileScreen {
         before running the tests.)
     */
     var headerBackgroundColor_desugaring_1: Color? {
-        fatalError("delete this line and implement me")
+        let res: Color?
+        if let value = user.avatar?.style.backgroundColor {
+            res = value
+        } else {
+            res = appTheme.backgroundColor
+        }
+        return res
     }
 
     /**
@@ -89,7 +95,21 @@ class ProfileScreen {
         Copy the previous method here, and remove all the optional chaining.
     */
     var headerBackgroundColor_desugaring_2: Color? {
-        fatalError("delete this line and implement me")
+        let res: Color?
+        let bgCol: Color?
+        
+        if let avatar = user.avatar {
+            bgCol = avatar.style.backgroundColor
+        } else {
+            bgCol = nil
+        }
+        
+        if let value = bgCol {
+            res = value
+        } else {
+            res = appTheme.backgroundColor
+        }
+        return res
     }
 
     /**
@@ -118,7 +138,25 @@ class ProfileScreen {
         the file, right?)
     */
     var headerBackgroundColor_desugaring_3: Color? {
-        fatalError("delete this line and implement me")
+        let res: Color?
+        let bgCol: Color?
+        
+        switch user.avatar {
+            case .some(let b):
+                bgCol = b.style.backgroundColor
+            
+            case .none:
+                bgCol = nil
+        }
+        
+        switch bgCol {
+            case .some(let b):
+                res = b
+            
+            case.none:
+                res = appTheme.backgroundColor
+        }
+        return res
     }
 
     /**
@@ -140,7 +178,25 @@ class ProfileScreen {
         Copy the previous method here and remove Swift’s automatic Optional wrapping.
     */
     var headerBackgroundColor_desugaring_4: Color? {
-        fatalError("delete this line and implement me")
+        let res: Color?
+        let bgCol: Color?
+        
+        switch user.avatar {
+        case .some(let b):
+            bgCol = b.style.backgroundColor
+            
+        case .none:
+            bgCol = nil
+        }
+        
+        switch bgCol {
+        case .some(let b):
+            res = .some(b)   //   <------------- I am suspicious of this...
+            
+        case .none:
+            res = appTheme.backgroundColor
+        }
+        return res
     }
 
     /**
@@ -150,8 +206,26 @@ class ProfileScreen {
         use nil at all, but if it does, replace it with .none instead. (You can say .none instead
         of Optional.none if Swift can already infer that it’s an Optional from context.)
     */
-    var headerBackgroundColor_desugaring_5: ________ {
-        fatalError("delete this line, fill in the blank above, and implement me")
+    var headerBackgroundColor_desugaring_5: Optional<Color> {
+        let res: Optional<Color>
+        let bgCol: Optional<Color>
+        
+        switch user.avatar {
+        case .some(let b):
+            bgCol = b.style.backgroundColor
+            
+        case .none:
+            bgCol = .none
+        }
+        
+        switch bgCol {
+        case .some(let b):
+            res = .some(b)
+            
+        case .none:
+            res = appTheme.backgroundColor
+        }
+        return res
     }
 
     /**
@@ -172,8 +246,26 @@ class ProfileScreen {
         headerBackgroundColorDesugarings up above (which converts your FakeOptional return value
         back to a real Optional), and the tests should still pass.
     */
-    var headerBackgroundColor_desugaring_verification: ________ {
-        fatalError("delete this line, fill in the blank above, and implement me")
+    var headerBackgroundColor_desugaring_verification: FakeOptional<Color> {
+        let res: FakeOptional<Color>
+        let bgCol: FakeOptional<Color>
+        
+        switch user.avatar.fakeOptional {
+        case .some(let b):
+            bgCol = b.style.backgroundColor.fakeOptional
+            
+        case .none:
+            bgCol = .none
+        }
+        
+        switch bgCol {
+        case .some(let b):
+            res = .some(b)
+            
+        case .none:
+            res = appTheme.backgroundColor.fakeOptional
+        }
+        return res
     }
 }
 
