@@ -229,7 +229,7 @@ class ProfileScreen {
         headerBackgroundColorDesugarings up above (which converts your FakeOptional return value
         back to a real Optional), and the tests should still pass.
     */
-    var headerBackgroundColor_desugaring_verification: ________ {
+    var headerBackgroundColor_desugaring_verification: FakeOptional<Color>{
         let bgcolor: FakeOptional<Color>
         switch user.avatar.fakeOptional {
         case .some(let avatar):
