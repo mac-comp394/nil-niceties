@@ -56,7 +56,7 @@ class ProfileScreen {
     var headerBackgroundColor_desugaring_1: Color? {
         let bgcolor: Color?
         if let avaColor = user.avatar?.style.backgroundColor {
-            avaColor = user.avatar?.style.backgroundColor
+            bgcolor = avaColor
         } else {
             bgcolor = appTheme.backgroundColor
         }
@@ -97,7 +97,7 @@ class ProfileScreen {
     var headerBackgroundColor_desugaring_2: Color? {
         let bgcolor: Color?
         if let avatar = user.avatar{
-            if let avaColor = avatar.backgroundColor{
+            if let avaColor = avatar.style.backgroundColor{
                 bgcolor = avaColor
             }
             else{
@@ -194,7 +194,7 @@ class ProfileScreen {
         use nil at all, but if it does, replace it with .none instead. (You can say .none instead
         of Optional.none if Swift can already infer that it’s an Optional from context.)
     */
-    var headerBackgroundColor_desugaring_5: ________ {
+    var headerBackgroundColor_desugaring_5: Optional<Color> {
         let bgcolor: Optional<Color>
         switch user.avatar {
         case .some(let avatar):
