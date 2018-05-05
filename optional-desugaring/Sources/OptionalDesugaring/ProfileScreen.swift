@@ -16,12 +16,12 @@ class ProfileScreen {
     var headerBackgroundColorDesugarings: [Color?] {
         return [
             headerBackgroundColor,
-            //headerBackgroundColor_desugaring_1,
-            //headerBackgroundColor_desugaring_2,
-            //headerBackgroundColor_desugaring_3,
-            //headerBackgroundColor_desugaring_4,
-            //headerBackgroundColor_desugaring_5,
-            //headerBackgroundColor_desugaring_verification.realOptional  // convert from FakeOptional; DO NOT MODIFY this line (except for uncommenting)
+            headerBackgroundColor_desugaring_1,
+            headerBackgroundColor_desugaring_2,
+            headerBackgroundColor_desugaring_3,
+            headerBackgroundColor_desugaring_4,
+            headerBackgroundColor_desugaring_5,
+            headerBackgroundColor_desugaring_verification.realOptional  // convert from FakeOptional; DO NOT MODIFY this line (except for uncommenting)
         ]
     }
 
@@ -54,7 +54,15 @@ class ProfileScreen {
         before running the tests.)
     */
     var headerBackgroundColor_desugaring_1: Color? {
-        fatalError("delete this line and implement me")
+		//fatalError("delete this line and implement me")
+        
+        let x: Color?
+        if let value = user.avatar?.style.backgroundColor {
+            x = value
+        } else {
+            x = appTheme.backgroundColor
+        }
+        return x
     }
 
     /**
@@ -89,11 +97,26 @@ class ProfileScreen {
         Copy the previous method here, and remove all the optional chaining.
     */
     var headerBackgroundColor_desugaring_2: Color? {
-        fatalError("delete this line and implement me")
+        
+        let x: Color?
+        
+        if let value = user.avatar{
+            if let value2 = value.style.backgroundColor{
+                x = value2
+            }
+            else{
+                x = appTheme.backgroundColor
+            }
+        }
+        
+        else{
+            x = appTheme.backgroundColor
+        }
+        return x
     }
 
     /**
-        Swift’s “if let” syntax, “optional binding,” is itself sugar for a case statement that matches
+        Swift’s “if let” syntax, “optional binding,” is itself sugar for a case statement that matches
         the two possible values of the algebraic type Optional, some and none. In other words, this:
 
             if let b = a {
@@ -118,7 +141,23 @@ class ProfileScreen {
         the file, right?)
     */
     var headerBackgroundColor_desugaring_3: Color? {
-        fatalError("delete this line and implement me")
+        let x: Color?
+        
+        switch user.avatar{
+        case .some(let value):
+            switch value.style.backgroundColor{
+            
+            case .some(let value2):
+                x = value2
+            case .none:
+                x = appTheme.backgroundColor
+            }
+
+        case .none:
+            x = appTheme.backgroundColor
+        }
+        
+        return x
     }
 
     /**
@@ -140,7 +179,24 @@ class ProfileScreen {
         Copy the previous method here and remove Swift’s automatic Optional wrapping.
     */
     var headerBackgroundColor_desugaring_4: Color? {
-        fatalError("delete this line and implement me")
+        let x: Color?
+        
+        switch user.avatar{
+        case .some(let value):
+            switch value.style.backgroundColor{
+                
+            case .some(let value2):
+                x = .some(value2)
+            case .none:
+                x = appTheme.backgroundColor
+            }
+            
+        case .none:
+            x = appTheme.backgroundColor
+        }
+        
+        return x
+        
     }
 
     /**
@@ -150,8 +206,25 @@ class ProfileScreen {
         use nil at all, but if it does, replace it with .none instead. (You can say .none instead
         of Optional.none if Swift can already infer that it’s an Optional from context.)
     */
-    var headerBackgroundColor_desugaring_5: ________ {
-        fatalError("delete this line, fill in the blank above, and implement me")
+    var headerBackgroundColor_desugaring_5: Optional<Color> {
+        let x: Optional<Color>
+        
+        switch user.avatar{
+        case .some(let value):
+            switch value.style.backgroundColor{
+                
+            case .some(let value2):
+                x = .some(value2)
+            case .none:
+                x = appTheme.backgroundColor
+            }
+            
+        case .none:
+            x = appTheme.backgroundColor
+        }
+        
+        return x
+        
     }
 
     /**
@@ -165,15 +238,32 @@ class ProfileScreen {
 
         - Anywhere you use the type name Optional, replace it with FakeOptional.
         - Anywhere you use the two model properties that return Optional, convert them to FakeOptional instead:
-            - Replace .avatar → .avatar.fakeOptional
-            - Replace .backgroundColor → .backgroundColor.fakeOptional
+            - Replace .avatar → .avatar.fakeOptional
+            - Replace .backgroundColor → .backgroundColor.fakeOptional
 
         After doing this, your code should still compile. Uncomment the last line of
         headerBackgroundColorDesugarings up above (which converts your FakeOptional return value
         back to a real Optional), and the tests should still pass.
     */
-    var headerBackgroundColor_desugaring_verification: ________ {
-        fatalError("delete this line, fill in the blank above, and implement me")
+    var headerBackgroundColor_desugaring_verification: FakeOptional<Color> {
+        let x: FakeOptional<Color>
+        
+        switch user.avatar.fakeOptional{
+        case .some(let value):
+            switch value.style.backgroundColor.fakeOptional{
+                
+            case .some(let value2):
+                x = .some(value2)
+            case .none:
+                x = appTheme.backgroundColor.fakeOptional
+            }
+            
+        case .none:
+            x = appTheme.backgroundColor.fakeOptional
+        }
+        
+        return x
+        
     }
 }
 
